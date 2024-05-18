@@ -49,7 +49,7 @@ export const CrearActivity = () => {
   //! 5) estados de navegacion
   // estados ok -- falta
   if (ok) {
-        return <Navigate to="/dashboard"/>
+        return <Navigate to="/activities/feed"/>
 
     //console.log("Actividad creada");
   }

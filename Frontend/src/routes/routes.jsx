@@ -4,6 +4,7 @@ import App from '../App'
 import { ForgotPassword } from '../pages/ForgotPassword'
 import { Protected, ProtectedCheckChildren } from '../components'
 import { CrearActivity } from '../pages/CrearActivity'
+import { ActivitiesFeed } from '../pages/ActivitiesFeed'
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +59,14 @@ export const router = createBrowserRouter([
                 element: (
                         <CrearActivity />
                 )
+            },
+            {
+                path: '/activities/feed',
+                element: (
+                <Protected>
+                    <ActivitiesFeed /> 
+                </Protected>
+                ),
             },
         ]
     }
