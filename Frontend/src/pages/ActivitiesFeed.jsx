@@ -1,51 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useActivitiesFeedError } from '../hooks/useActivitiesFeedError';
-import { getAllActivities } from '../services/activities.service';
+import { getAllActivities, getByName } from '../services/activities.service';
 import Figure from '../components/FigureActivity';
-import "./ActivitiesFeed.css"
+import './ActivitiesFeed.css';
+import { Input } from '../components/Input';
+import { useGetByNameError } from '../hooks';
 
 export const ActivitiesFeed = () => {
   const [activities, setActivities] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [res, setRes] = useState({});
-
+  const [searchRes, setSearchRes] = useState({});
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de la búsqueda
 
   useEffect(() => {
-    (async ()=> {
+    (async () => {
       setRes(await getAllActivities());
     })();
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     useActivitiesFeedError(res, setRes, setActivities);
   }, [res]);
 
   useEffect(() => {
-    console.log("DDD", activities);
-  }, [activities]);
+    useGetByNameError(searchRes, setSearchRes, setActivities);
+  }, [searchRes]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {}, [activities]);
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  useEffect(() => {
+    if (searchTerm.trim() === '') {
+      return;
+    }
+    (async () => {
+      setSearchRes(await getByName(searchTerm));
+    })();
+  }, [searchTerm]);
+
+  const handleSearch = async (term) => {
+    setSearchTerm(term);
+  };
 
   return (
     <div>
       <h1>Activities Feed</h1>
+      <Input setValueInput={handleSearch} value={searchTerm} />
       <div id="containerActivitiesFeed">
         {activities.length > 0 &&
-          activities.map((activity) => (
-            <Figure activity={activity} idActivity={activity._id} key={activity._id} />
-          ))}
-        {activities.length == 0 && 'HH'}
+          activities.map((activity) => <Figure activity={activity} key={activity._id} />)}
+        {activities.length === 0 && 'No se han encontrado actividades'}
       </div>
     </div>
   );
 };
-
-

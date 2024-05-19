@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { getById } from '../services/activities.service';
 
 const ActivityDetail = ({ activity }) => {
-    if (!activity) {// ESTO LO DEJO O LO QUITO... PORQUE SI NO HAY ACTIVIDADES...
-      return <div>Loading...</div>;
+    if (!activity) {
+      return <div>Crear página 404 VER CON PEDRO...</div>;
     }
+    
   return (
     <div className="activity-detail">
       <h1>{activity.name}</h1>
