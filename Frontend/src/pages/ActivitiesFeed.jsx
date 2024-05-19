@@ -38,10 +38,11 @@ export const ActivitiesFeed = () => {
     <div>
       <h1>Activities Feed</h1>
       <div id="containerActivitiesFeed">
-        {activities.length > 0 && activities.map(activity => (
-            <Figure activity={activity} key={activity._id} />
-        ))}
-        {activities.length == 0 && "HH"}
+        {activities.length > 0 &&
+          activities.map((activity) => (
+            <Figure activity={activity} idActivity={activity._id} key={activity._id} />
+          ))}
+        {activities.length == 0 && 'HH'}
       </div>
     </div>
   );
