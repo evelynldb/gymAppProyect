@@ -50,7 +50,7 @@ export const getByName = async (name) => {
     .catch((error) => error);
 };
 
-//? Quitamos el middelware isAuth de la ruta??
+//? OJO! Quitar el middelware isAuth de la ruta en backend!!
 
 //! ------------- GET BY TYPE  --------------- //
 
@@ -97,3 +97,4 @@ export const deleteActivity = async (idActivity) => {
     .then((res) => res)
     .catch((error) => error);
 };
+

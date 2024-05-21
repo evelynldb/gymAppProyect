@@ -22,7 +22,7 @@ const ActivityToDay = require("../models/ActivityToDay.model");
 
 const createActivity = async (req, res, next) => {
   let catchImg = req.file?.path;
-  console.log(req.file)
+  console.log(req.file);
   if (!catchImg) {
     catchImg = "https://pic.onlinewebfonts.com/svg/img_181369.png"; //aquí podemos poner por defecto al logo del gym
   }
@@ -157,7 +157,13 @@ const getByName = async (req, res, next) => {
   try {
     const { name } = req.params;
 
-    const allActivities = await Activities.find({ name }).populate("like");
+    // Crear una expresión regular insensible a mayúsculas y minúsculas
+    const regex = new RegExp(name, "i");
+
+    // Usar la expresión regular en la consulta
+    const allActivities = await Activities.find({ name: regex }).populate(
+      "like"
+    );
 
     if (allActivities.length > 0) {
       return res.status(200).json(allActivities);

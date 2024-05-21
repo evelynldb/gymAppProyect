@@ -962,4 +962,5 @@ module.exports = {
   byName,
   byGender,
   changeRol,
+  deleteUser,
 };

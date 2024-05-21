@@ -173,6 +173,7 @@ export const CrearActivity = () => {
             >
               Crear
             </button>
+            
           </div>
         </form>
       </div>
