@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema(
       enum: ["hombre", "mujer", "otros"],
       required: true,
     },
-    edad: {
+    age: {
       type: Number,
       required: true,
     },
@@ -56,11 +56,15 @@ const UserSchema = new mongoose.Schema(
     },
 
     activitiesFav: [
-      //!estaba mal, estaba puesto ActivityToDay y es Activities
-      { type: mongoose.Schema.Types.ObjectId, ref: "Activities" }, //!estaba mal, estaba puesto ActivityToDay y es Activities
+      { type: mongoose.Schema.Types.ObjectId, ref: "Activities" },
     ],
     monitoresFav: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    murosLikes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Muro" }],
+    wallLikes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Wall" }],
+    chats: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
+    commentsPublicByOther: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Message" },
+    ],
+    postedMessages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
   },
   {
     // esto es cuando se crea y se actualiza el objeto

@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import "./FigureActivity.css"
-
+import { Link } from 'react-router-dom';
+import './FigureActivity.css';
 
 const Figure = ({ activity }) => {
   return (

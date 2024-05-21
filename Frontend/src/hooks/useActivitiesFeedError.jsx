@@ -11,7 +11,7 @@ export const useActivitiesFeedError = (res, setRes, setData) => {
 
   if (res?.response?.status == 404) {
     setRes(() => ({}));
-    return;
+    return;//PENDIENTE REVISAR! EVE
     return Swal.fire({
       icon: 'info',
       title: 'No Activities Found',

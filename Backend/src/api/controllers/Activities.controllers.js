@@ -26,13 +26,8 @@ const createActivity = async (req, res, next) => {
   if (!catchImg) {
     catchImg = "https://pic.onlinewebfonts.com/svg/img_181369.png"; //aquí podemos poner por defecto al logo del gym
   }
-
   try {
-    /*if (req.user.rol !== "superadmin") {
-      return res
-        .status(403)
-        .json({ error: "No estás autorizado para realizar esta acción" });
-    }  LO QUITO PORQUE ESTO YA LO PONGO CON UN MIDDELWARE DE SUPERADMIN*/
+    // esta acción solo puede hacerla el superadmin, por eso metemos el middelware en la ruta
     await Activities.syncIndexes();
 
     const { name, type } = req.body;
@@ -53,9 +48,9 @@ const createActivity = async (req, res, next) => {
     //no hace falta poner el else porque si no se da la condición, directamente sigue al sgte pto.
 
     const newActivity = new Activities(req.body);
-    newActivity.image = catchImg;
 
     await newActivity.save();
+
     return res.status(201).json(newActivity);
   } catch (error) {
     if (req.file) deleteImgCloudinary(catchImg);
@@ -70,11 +65,6 @@ const createActivity = async (req, res, next) => {
 
 const toggleStatus = async (req, res, next) => {
   try {
-    /*if (req.user.rol !== "superadmin") {
-      return res
-        .status(403)
-        .json({ error: "No estás autorizado para realizar esta acción" });
-    } ---- lo quito porque en el middelware tengo isAuthAdmin*/
     await Activities.syncIndexes();
 
     const { idActivity } = req.params;
@@ -157,10 +147,9 @@ const getByName = async (req, res, next) => {
   try {
     const { name } = req.params;
 
-    // Crear una expresión regular insensible a mayúsculas y minúsculas
+    // Con esto conseguimos que no importe mayúsculas y minúsculas en el input buscador
     const regex = new RegExp(name, "i");
 
-    // Usar la expresión regular en la consulta
     const allActivities = await Activities.find({ name: regex }).populate(
       "like"
     );

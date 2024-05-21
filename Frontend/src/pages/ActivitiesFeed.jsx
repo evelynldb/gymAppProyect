@@ -27,7 +27,9 @@ export const ActivitiesFeed = () => {
     useGetByNameError(searchRes, setSearchRes, setActivities);
   }, [searchRes]);
 
-  useEffect(() => {}, [activities]);
+  useEffect(() => {
+    console.log(activities)
+  }, [activities]);
 
   useEffect(() => {
     if (searchTerm.trim() === '') {

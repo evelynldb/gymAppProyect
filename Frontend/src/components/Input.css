@@ -1,6 +1,6 @@
 #busqueda {
   display: block; 
-  margin: 20px auto; /* Centra el input horizontalmente con auto margins */
+  margin: 20px auto; /* Centra el input horizontalmente con auto margin */
   padding: 10px; 
   width: 50%; 
   max-width: 400px; 

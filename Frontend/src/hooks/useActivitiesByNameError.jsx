@@ -2,12 +2,17 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 export const useGetByNameError = (res, setRes, setData) => {
+    console.log("hola"+res);
   if (res?.status == 200) {
+    console.log(res.data);
     setData(res.data);
     setRes(() => ({}));
+    return;
   }
 
   if (res?.response?.status == 404) {
+        console.log('hola' + res);
+
     setRes(() => ({}));
     setData(() => []);
     return;

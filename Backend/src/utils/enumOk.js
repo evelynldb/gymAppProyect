@@ -1,3 +1,15 @@
+const enumOk = (gender) => {
+  const enumGender = ["hombre", "mujer", "otros"];
+  if (enumGender.includes(gender)) {
+    console.log("entro en el true");
+    return { check: true, gender };
+  } else {
+    return {
+      check: false,
+    };
+  }
+};
+
 //!--------------ENUM TIPO ACTIVIDADES--------------------
 
 const enumTypeActivityIsOk = (type) => {
@@ -8,4 +20,6 @@ const enumTypeActivityIsOk = (type) => {
     return false;
   }
 };
+
 module.exports = enumTypeActivityIsOk;
+module.exports = enumOk;

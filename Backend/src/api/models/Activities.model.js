@@ -25,14 +25,13 @@ const ActivitiesSchema = new Schema(
     image: {
       type: String,
     },
-    like: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], //!añado s al final de like
-    //!! cambiar en origen el modeloy quitar esta clave!!!
+    like: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   },
   {
     timestamps: true,
   }
 );
 
-const Activities = mongoose.model("Activities", ActivitiesSchema); //lo verde es como yo lo llamo en mi código, el string es para mongo, y lo azul es el esquema
+const Activities = mongoose.model("Activities", ActivitiesSchema);
 
 module.exports = Activities;

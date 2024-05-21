@@ -4,7 +4,7 @@ import { getById } from '../services/activities.service';
 
 const ActivityDetail = ({ activity }) => {
     if (!activity) {
-      return <div>Crear página 404 VER CON PEDRO...</div>;
+      return <div>Crear página 404 VER CON PEDRO...</div>;//! pintar loading..(eve)
     }
     
   return (

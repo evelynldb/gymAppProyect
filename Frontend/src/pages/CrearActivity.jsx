@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import './CrearActivity.css';
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import "./CrearActivity.css";
 
-import { useCreateActivityError } from '../hooks/useCreateActivityError';
-import { Navigate } from 'react-router-dom';
-import { createActivityService } from '../services/activities.service';
-import { Uploadfile } from '../components';
-import { useAuth } from '../context/authContext';
+import { Uploadfile } from "../components/Uploadfile";
+import { useCreateActivityError } from "../hooks/useCreateActivityError";
+import { Navigate } from "react-router-dom";
+import { createActivityService } from "../services/activities.service";
+import { useAuth } from "../context/authContext";
 
 export const CrearActivity = () => {
-  
   const { user } = useAuth();
   // Si el usuario no está logueado, redirige a la página de inicio de sesión
   if (!user) {
@@ -173,10 +172,10 @@ export const CrearActivity = () => {
             >
               Crear
             </button>
-            
           </div>
         </form>
       </div>
     </>
   );
 };
+

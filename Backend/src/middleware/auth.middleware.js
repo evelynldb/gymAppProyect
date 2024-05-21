@@ -7,8 +7,7 @@ const isAuth = async (req, res, next) => {
   const token = req.headers.authorization?.replace("Bearer ", "");
 
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized" }); //401 es cuando no hay token o está caducado
-    //return next(new Error("Unauthorized"));
+    return next(new Error("Unauthorized"));
   }
 
   try {
@@ -34,7 +33,7 @@ const isAuthAdmin = async (req, res, next) => {
     console.log(decoded);
     req.user = await User.findById(decoded.id);
 
-    // pongo un requisito mas y es que sea monitor
+    // pongo un requisito mas y es que sea admin
     if (req.user.rol !== "monitor") {
       return next(new Error("Unauthorized, not monitor"));
     }
@@ -47,8 +46,7 @@ const isAuthAdmin = async (req, res, next) => {
 const isAuthSuper = async (req, res, next) => {
   const token = req.headers.authorization?.replace("Bearer ", "");
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
-    //return next(new Error("Unauthorized"));
+    return next(new Error("Unauthorized"));
   }
 
   try {
@@ -59,9 +57,7 @@ const isAuthSuper = async (req, res, next) => {
 
     // pongo un requisito mas y es que sea admin
     if (req.user.rol !== "superadmin") {
-      //!camnbio esto en mi carpeta
-      return res.status(403).json({ error: "Prohíbido" }); //403 tiene token pero no tiene acceso a esa zona
-      //return next(new Error("Unauthorized, not superadmin"));
+      return res.status(403).json({ error: "Prohíbido" });
     }
     next();
   } catch (error) {

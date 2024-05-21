@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
 const WallSchema = new mongoose.Schema(
   {
@@ -8,7 +7,7 @@ const WallSchema = new mongoose.Schema(
       enum: ["Empresa", "usuarios", "Publicidad"],
       required: true,
     },
-    fechaCaducidad: {
+    expirationDate: {
       type: Date,
       required: true,
     },
@@ -17,6 +16,8 @@ const WallSchema = new mongoose.Schema(
     image: [{ type: String }],
     activity: { type: mongoose.Schema.Types.ObjectId, ref: "Activities" },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
+    days: [{ type: mongoose.Schema.Types.ObjectId, ref: "Day" }],
+    content: { type: String },
   },
 
   {

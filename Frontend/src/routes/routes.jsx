@@ -1,19 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom';
-import {
-  ActivityDetailPage,
-  ChangePassword,
-  CheckCode,
-  Dashboard,
-  Login,
-  Register,
-  UpdateUser,
-} from '../pages';
-import App from '../App';
-import { ForgotPassword } from '../pages/ForgotPassword';
-import { Protected, ProtectedCheckChildren } from '../components';
-import { CrearActivity } from '../pages/CrearActivity';
-import { ActivitiesFeed } from '../pages/ActivitiesFeed';
-import { Profile } from '../pages/Profile';
+import { createBrowserRouter } from 'react-router-dom'
+import { ActivitiesFeed, ActivityDetailPage, ChangePassword, CheckCode, CrearActivity, Dashboard, Login, Main, Profile, Register, UpdateUser } from '../pages'
+import App from '../App'
+import { ForgotPassword } from '../pages/ForgotPassword'
+import { Protected, ProtectedCheckChildren } from '../components'
+import { NavUser } from '../components/NavUser'
+import MessageComponent from '../pages/CreateMessage'
 
 export const router = createBrowserRouter([
   {
@@ -48,7 +39,6 @@ export const router = createBrowserRouter([
         path: '/forgotPassword',
         element: <ForgotPassword />,
       },
-
       {
         path: '/profile/',
         element: (
@@ -89,6 +79,18 @@ export const router = createBrowserRouter([
         path: '/activities/:idActivity',
         element: <ActivityDetailPage />,
       },
+      {
+        path: '/home',
+        element: <Main />,
+      },
+      {
+        path: '/profile',
+        element: <NavUser />,
+      },
+      {
+        path: '/createMessage',
+        element: <MessageComponent />,
+      }
     ],
   },
 ]);

@@ -129,6 +129,7 @@ export const changeRolUser = async (idUser, newRol, formData) => {
       .catch((error) => error);
   };
 
+
 //! ---------- DELETE USER ---------- //
 
 export const deleteUser = async (idUser) => {

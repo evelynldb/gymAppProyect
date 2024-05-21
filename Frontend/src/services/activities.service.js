@@ -50,8 +50,6 @@ export const getByName = async (name) => {
     .catch((error) => error);
 };
 
-//? OJO! Quitar el middelware isAuth de la ruta en backend!!
-
 //! ------------- GET BY TYPE  --------------- //
 
 export const getByType = async (type) => {
@@ -97,4 +95,3 @@ export const deleteActivity = async (idActivity) => {
     .then((res) => res)
     .catch((error) => error);
 };
-

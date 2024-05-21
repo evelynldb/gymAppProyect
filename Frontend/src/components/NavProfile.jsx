@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./NavProfile.css";
+//import { useDeleteUser } from "../hooks";
 import { useAuth } from "../context/authContext";
 
 export const NavProfile = () => {

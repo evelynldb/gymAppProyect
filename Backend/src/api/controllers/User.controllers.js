@@ -26,7 +26,6 @@ const {
 const setError = require("../../helpers/handle-error");
 const { generateToken } = require("../../utils/token");
 const randomPassword = require("../../utils/randomPassword");
-const Activities = require("../models/Activities.model");
 
 //------------------->CRUD es el acrónimo de "Crear, Leer, Actualizar y Borrar"
 /**+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -98,13 +97,14 @@ const registerLargo = async (req, res, next) => {
             });
           });
         } else {
+          if (req?.file) deleteImgCloudinary(catchImg);// añadimos esta línea para borrar la imagen si no se completa el register
           return res.status(404).json("error save user");
         }
       } catch (error) {
         return res.status(404).json(error.message);
       }
     } else {
-      if (req.file) deleteImgCloudinary(catchImg);
+      if (req?.file) deleteImgCloudinary(catchImg);
       return res.status(409).json("this user already exist");
     }
   } catch (error) {
@@ -160,6 +160,8 @@ const registerUtil = async (req, res, next) => {
           }, 2500);
         }
       } catch (error) {
+       if (req.file) deleteImgCloudinary(catchImg);// añadimos esta línea para borrar la imagen si no se completa el register
+
         return res.status(404).json(error.message);
       }
     } else {
@@ -876,19 +878,29 @@ const byGender = async (req, res, next) => {
 };
 
 //! -----------------------------------------------------------------------------
-//? ---------------------------------FOLLOW USER--------------------------------------
+//? --------------------------CAMBIAR ROL A MONITOR-----------------------------
 //! -----------------------------------------------------------------------------
 
-//! ------------------------------------------------------------------------------
-//? -------------------------------AÑADIR A FAVORITOS ----------------------------
-//! ------------------------------------------------------------------------------
-
-const togglelikeMonitor = async (req, res, next) => {
+const changeRol = async (req, res, next) => {
   try {
-    await Activities.syncIndexes();
-  } catch (error) {}
-};
+    const { idUser, newRol } = req.params;
+    try {
+      await User.findByIdAndUpdate(idUser, { rol: newRol });
 
+      // test --------------------runtime ---------------
+      const updateUser = await User.findById(idUser);
+      if (updateUser.rol == newRol) {
+        return res.status(200).json({ updated: true });
+      } else {
+        return res.status(409).json({ updated: false });
+      }
+    } catch (error) {
+      return res.status(409).json(error.message);
+    }
+  } catch (error) {
+    return res.status(409).json(error.message);
+  }
+};
 //! -----------------------------------------------------------------------------
 //? ---------------------------------DELETE--------------------------------------
 //! -----------------------------------------------------------------------------
@@ -916,31 +928,6 @@ const deleteUser = async (req, res, next) => {
       success: false,
       message: "Ocurrió un error al eliminar sus mensajes.",
     });
-  }
-};
-
-//! -----------------------------------------------------------------------------
-//? --------------------------CAMBIAR ROL A MONITOR-----------------------------
-//! -----------------------------------------------------------------------------
-
-const changeRol = async (req, res, next) => {
-  try {
-    const { idUser, newRol } = req.params;
-    try {
-      await User.findByIdAndUpdate(idUser, { rol: newRol });
-
-      // test --------------------runtime ---------------
-      const updateUser = await User.findById(idUser);
-      if (updateUser.rol == newRol) {
-        return res.status(200).json({ updated: true });
-      } else {
-        return res.status(409).json({ updated: false });
-      }
-    } catch (error) {
-      return res.status(409).json(error.message);
-    }
-  } catch (error) {
-    return res.status(409).json(error.message);
   }
 };
 
