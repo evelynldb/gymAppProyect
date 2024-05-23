@@ -5,22 +5,22 @@ import { APIGym } from './gym.config';
 
 export const createWall = async (formData) => {
   return APIGym.post('/walls', formData, {
-    headers: { 'Content-Type': 'application/json', 
-    Authorization: `Bearer ${updateToken()}`, },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${updateToken()}`,
+    },
   })
     .then((res) => res)
     .catch((error) => error);
-    };
+};
 
-
-    //! ---------- GET BY USER ID ---------- //
+//! ---------- GET BY USER ID ---------- //
 
 export const getWallByUser = async (userId) => {
   return APIGym.get(`/walls/user/${userId}`)
     .then((res) => res)
     .catch((error) => error);
 };
-
 
 //! ---------- GET BY ACTIVITY ---------- //
 
@@ -38,7 +38,6 @@ export const getWallByType = async (type) => {
     .catch((error) => error);
 };
 
-
 //! ---------- GET BY DAY ---------- //
 
 export const getWallByDay = async (day) => {
@@ -47,13 +46,12 @@ export const getWallByDay = async (day) => {
     .catch((error) => error);
 };
 
-
 //! ---------- DELETE WALL ---------- //
 
 export const deleteWall = async (id) => {
-  return APIGym.delete(`/walls/${id}`,{
-    headers: {Authorization: `Bearer ${updateToken()}`},
-})
+  return APIGym.delete(`/walls/${id}`, {
+    headers: { Authorization: `Bearer ${updateToken()}` },
+  })
     .then((res) => res)
     .catch((error) => error);
 };
@@ -61,11 +59,10 @@ export const deleteWall = async (id) => {
 //! ---------- GET ALL WALLS ---------- //
 
 export const getAllWalls = async () => {
-  return APIGym.get('/walls')
+  return APIGym.get('/wall/getall')
     .then((res) => res)
     .catch((error) => error);
 };
-
 
 //! ---------- DELETE WALL BY EXPIRATION ---------- //
 

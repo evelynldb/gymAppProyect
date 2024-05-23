@@ -33,51 +33,33 @@ export const CrearActivity = () => {
   const { register, handleSubmit } = useForm();
 
   //! 3) la funcion que gestiona los datos del formulario
-  const formSubmit = async (formData) => {
-    // esta es la funcion que va a llamar al servicio de la api
-    const inputFile = document.getElementById('file-upload').files;
+   const formSubmit = async (data) => {
+     const inputFile = document.getElementById('file-upload').files;
+     const formData = new FormData();
 
-    //* condicional para enviar los datos del formulario al backend tanto si hay subida imagen como si no
-    if (inputFile.lenght != 0) {
-      // si es diferente a 0 es que hay algo dentro de files
-      const customFormData = {
-        ...formData,
-        image: inputFile[0],
-      };
-      //llamada al backend
-      setSend(true);
-      setRes(await createActivityService(customFormData));
-      setSend(false);
-    } else {
-      // si no hay imagen solo hago una copia del formData
-      const customFormData = {
-        ...formData,
-      };
-      //llamada al backend
-      setSend(true);
-      setRes(await rcreateActivityService(customFormData));
-      setSend(false);
-    }
-  };
+     for (let key in data) {
+       formData.append(key, data[key]);
+     }
 
-  //! 4) useEffects que gestionan la repuesta y manejan los errores
-  useEffect(() => {
-    // aqui voy a llamar a un customHook para gestionar los errores
-    useCreateActivityError(res, setRes, setOk);
-    console.log('res', res);
-  }, [res]);
+     if (inputFile.length !== 0) {
+       formData.append('image', inputFile[0]);
+     }
 
-  //! 5) estados de navegacion
-  // estados ok -- falta
-  if (ok) {
-    return <Navigate to="/activities/feed" />;
+     setSend(true);
+     setRes(await createActivityService(formData));
+     setSend(false);
+   };
 
-    //console.log("Actividad creada");
-  }
+   useEffect(() => {
+     //! useEffects que gestionan la repuesta y manejan los errores
+     useCreateActivityError(res, setRes, setOk);
+     console.log('res', res);
+   }, [res]);
 
-  const handleToogle = () => {
-    toggleStatus('662d7aa61d0e8b8653d48526');
-  };
+   if (ok) {
+     return <Navigate to="/activities/feed" />;
+   }
+  
 
   return (
     <>
@@ -112,6 +94,20 @@ export const CrearActivity = () => {
               {...register('spots', { required: true })}
             />
           </div>
+
+          <div className="descriptioncontainer form-group">
+            <label htmlFor="custom-input" className="custom-placeholder">
+              Descripción de la actividad
+            </label>
+            <textarea
+              className="input_activity"
+              id="description"
+              name="description"
+              autoComplete="false"
+              {...register('description', { required: true })}
+            ></textarea>
+          </div>
+
           <div className="type  form-group">
             <label htmlFor="custom-input" className="custom-placeholder">
               Tipo de actividad

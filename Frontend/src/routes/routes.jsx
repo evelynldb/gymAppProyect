@@ -1,16 +1,35 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { ActivitiesFeed, ActivityDetailPage, ChangePassword, CheckCode, CrearActivity, Dashboard, Login, Main, Profile, Register, UpdateUser } from '../pages'
-import App from '../App'
-import { ForgotPassword } from '../pages/ForgotPassword'
-import { Protected, ProtectedCheckChildren } from '../components'
-import { NavUser } from '../components/NavUser'
-import MessageComponent from '../pages/CreateMessage'
+import { createBrowserRouter } from 'react-router-dom';
+import {
+  ActivitiesFeed,
+  ActivityDetailPage,
+  ChangePassword,
+  CheckCode,
+  Contact,
+  CrearActivity,
+  Dashboard,
+  Home,
+  Login,
+  Profile,
+  Register,
+  UpdateUser,
+} from '../pages';
+import App from '../App';
+import { ForgotPassword } from '../pages/ForgotPassword';
+import { Protected, ProtectedCheckChildren } from '../components';
+import { NavUser } from '../components/NavUser';
+import MessageComponent from '../pages/CreateMessage';
+import { Wall } from '../pages/Wall';
+import { CreateWallForm } from '../pages/CreateWallForm';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
+      {
+        index: true, // Ruta de índice
+        element: <Home />,
+      },
       {
         path: '/register',
         element: <Register />,
@@ -80,17 +99,25 @@ export const router = createBrowserRouter([
         element: <ActivityDetailPage />,
       },
       {
-        path: '/home',
-        element: <Main />,
-      },
-      {
         path: '/profile',
         element: <NavUser />,
       },
       {
         path: '/createMessage',
         element: <MessageComponent />,
-      }
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
+      },
+      {
+        path: '/wall',
+        element: <Wall />,
+      },
+      {
+        path: '/createWallForm',
+        element: <CreateWallForm />,
+      },
     ],
   },
 ]);

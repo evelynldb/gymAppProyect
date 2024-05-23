@@ -173,7 +173,7 @@ const getAllWalls = async (req, res) => {
     }
 
     // Si hay muros, los enviamos como respuesta
-    res.status(200).json({ walls });
+    res.status(200).json({ data: walls, status: "OK" });
   } catch (error) {
     // Si hay algún error, enviamos un mensaje de error
     console.error("Error getting walls:", error);

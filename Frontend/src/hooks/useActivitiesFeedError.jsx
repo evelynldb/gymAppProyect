@@ -2,16 +2,14 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 export const useActivitiesFeedError = (res, setRes, setData) => {
-  console.log('HJJ', res);
   if (res?.status == 200) {
-    console.log('esta todo correcto');
     setData(res.data);
     setRes(() => ({}));
   }
 
   if (res?.response?.status == 404) {
     setRes(() => ({}));
-    return;//PENDIENTE REVISAR! EVE
+    return; //PENDIENTE REVISAR! EVE
     return Swal.fire({
       icon: 'info',
       title: 'No Activities Found',

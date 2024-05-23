@@ -14,6 +14,7 @@ export const useLoginError = (res, setRes, login, setLoginOk) => {
       name: res.data.user.name,
       age: res.data.user.age,
       gender: res.data.user.gender,
+      activitiesFav: res.data.user.activitiesFav
     };
 
     const stringUser = JSON.stringify(dataCustom);
