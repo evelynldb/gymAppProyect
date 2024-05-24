@@ -12,7 +12,6 @@ const Figure = ({ activity, user, setActivities }) => {
   const [res, setRes] = useState({});
   const [like, setLike] = useState(false);
 
- 
   const handleLike = async () => {
     setRes(await toggleLikeActivity(activity._id));
   };

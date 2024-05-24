@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Uploadfile.css";
 
-export const Uploadfile = () => {
+export const Uploadfile = ({img}) => {
   const ekUpload = () => {
     const Init = () => {
       var fileSelect = document.getElementById("file-upload");
@@ -71,6 +71,7 @@ export const Uploadfile = () => {
 
   return (
     <div id="file-upload-form" className="uploader">
+      {img && (<div><img src={img} /> </div>) }
       <input id="file-upload" type="file" name="image" accept="image/*" />
 
       <label htmlFor="file-upload" id="file-drag">
