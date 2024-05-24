@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "./CrearActivity.css";
-
 import { Uploadfile } from "../components/Uploadfile";
 import { useCreateActivityError } from "../hooks/useCreateActivityError";
 import { Navigate } from "react-router-dom";
@@ -33,33 +32,46 @@ export const CrearActivity = () => {
   const { register, handleSubmit } = useForm();
 
   //! 3) la funcion que gestiona los datos del formulario
-   const formSubmit = async (data) => {
-     const inputFile = document.getElementById('file-upload').files;
-     const formData = new FormData();
+  const formSubmit = async (formData) => {
+    // esta es la funcion que va a llamar al servicio de la api
+    const inputFile = document.getElementById('file-upload').files;
 
-     for (let key in data) {
-       formData.append(key, data[key]);
-     }
+    //* condicional para enviar los datos del formulario al backend tanto si hay subida imagen como si no
+    if (inputFile.lenght != 0) {
+      // si es diferente a 0 es que hay algo dentro de files
+      const customFormData = {
+        ...formData,
+        image: inputFile[0],
+      };
+      //llamada al backend
+      setSend(true);
+      setRes(await createActivityService(customFormData));
+      setSend(false);
+    } else {
+      // si no hay imagen solo hago una copia del formData
+      const customFormData = {
+        ...formData,
+      };
+      //llamada al backend
+      setSend(true);
+      setRes(await createActivityService(customFormData));
+      setSend(false);
+    }
+  };
 
-     if (inputFile.length !== 0) {
-       formData.append('image', inputFile[0]);
-     }
+  //! 4) useEffects que gestionan la repuesta y manejan los errores
+  useEffect(() => {
+    // aqui voy a llamar a un customHook para gestionar los errores
+    useCreateActivityError(res, setRes, setOk);
+    console.log('res', res);
+  }, [res]);
 
-     setSend(true);
-     setRes(await createActivityService(formData));
-     setSend(false);
-   };
+  //! 5) estados de navegacion
+  // estados ok -- falta
+  if (ok) {
+    return <Navigate to="/activities/feed" />;
+  }
 
-   useEffect(() => {
-     //! useEffects que gestionan la repuesta y manejan los errores
-     useCreateActivityError(res, setRes, setOk);
-     console.log('res', res);
-   }, [res]);
-
-   if (ok) {
-     return <Navigate to="/activities/feed" />;
-   }
-  
 
   return (
     <>
@@ -71,14 +83,7 @@ export const CrearActivity = () => {
             <label htmlFor="custom-input" className="custom-placeholder">
               Nombre de la actividad
             </label>
-            <input
-              className="input_activity"
-              type="text"
-              id="name"
-              name="name"
-              autoComplete="false"
-              {...register('name', { required: true })}
-            />
+            <input className="input_activity" type="text" id="name" name="name" autoComplete="false" {...register('name', { required: true })}/>
           </div>
 
           <div className="spotscontainer form-group">

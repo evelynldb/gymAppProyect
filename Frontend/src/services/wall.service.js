@@ -4,28 +4,28 @@ import { APIGym } from './gym.config';
 //! ---------- CREATE WALL ---------- //
 
 export const createWall = async (formData) => {
-  return APIGym.post('/walls', formData, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${updateToken()}`,
-    },
+  return APIGym.post('/wall/createWall', formData, {
+    headers: { 'Content-Type': 'application/json', 
+    Authorization: `Bearer ${updateToken()}`, },
   })
     .then((res) => res)
     .catch((error) => error);
-};
+    };
 
-//! ---------- GET BY USER ID ---------- //
+
+    //! ---------- GET BY USER ID ---------- //
 
 export const getWallByUser = async (userId) => {
-  return APIGym.get(`/walls/user/${userId}`)
+  return APIGym.get(`/wall/getByUser/${userId}`)
     .then((res) => res)
     .catch((error) => error);
 };
+
 
 //! ---------- GET BY ACTIVITY ---------- //
 
 export const getWallByActivity = async (wallId) => {
-  return APIGym.get(`/walls/activity/${wallId}`)
+  return APIGym.get(`/wall/findByActivitie/${wallId}/activities`)
     .then((res) => res)
     .catch((error) => error);
 };
@@ -33,25 +33,27 @@ export const getWallByActivity = async (wallId) => {
 //! ---------- GET BY TYPE ---------- //
 
 export const getWallByType = async (type) => {
-  return APIWall.get(`/walls/type/${type}`)
+  return APIWall.get(`/wall/findByType/${type}`)
     .then((res) => res)
     .catch((error) => error);
 };
+
 
 //! ---------- GET BY DAY ---------- //
 
 export const getWallByDay = async (day) => {
-  return APIGym.get(`/walls/day/${day}`)
+  return APIGym.get(`/wall/findByDay/${day}`)
     .then((res) => res)
     .catch((error) => error);
 };
 
+
 //! ---------- DELETE WALL ---------- //
 
 export const deleteWall = async (id) => {
-  return APIGym.delete(`/walls/${id}`, {
-    headers: { Authorization: `Bearer ${updateToken()}` },
-  })
+  return APIGym.delete(`/wall/${id}`,{
+    headers: {Authorization: `Bearer ${updateToken()}`},
+})
     .then((res) => res)
     .catch((error) => error);
 };
@@ -64,10 +66,11 @@ export const getAllWalls = async () => {
     .catch((error) => error);
 };
 
+
 //! ---------- DELETE WALL BY EXPIRATION ---------- //
 
 export const deleteWallByExpiration = async () => {
-  return APIWall.delete('/walls/expired')
+  return APIWall.delete('/wall/paredesVencidas')
     .then((res) => res)
     .catch((error) => error);
 };

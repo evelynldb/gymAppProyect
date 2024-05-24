@@ -11,7 +11,7 @@ const upload = multer().none();
 
 const createWall = async (req, res) => {
   // Extrae los datos necesarios del cuerpo de la solicitud (req.body) o de donde corresponda
-  const { type, expirationDate, owner, likes, image, activity, comments } =
+  const { type, name, expirationDate, owner, likes, image, activity, comments } =
     req.body;
 
   try {
@@ -24,6 +24,7 @@ const createWall = async (req, res) => {
       image,
       activity,
       comments,
+      name,
     });
 
     // Devuelve una respuesta con el nuevo muro creado
@@ -173,7 +174,7 @@ const getAllWalls = async (req, res) => {
     }
 
     // Si hay muros, los enviamos como respuesta
-    res.status(200).json({ data: walls, status: "OK" });
+    res.status(200).json({ walls });
   } catch (error) {
     // Si hay algún error, enviamos un mensaje de error
     console.error("Error getting walls:", error);

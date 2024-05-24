@@ -33,21 +33,29 @@ export const ActivitiesFeed = () => {
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
-      return;
+      (async () => {
+        setSearchRes(await getAllActivities());
+      })();
+    } else {
+      (async () => {
+        setSearchRes(await getByName(searchTerm));
+      })();
     }
-    (async () => {
-      setSearchRes(await getByName(searchTerm));
-    })();
   }, [searchTerm]);
 
   const handleSearch = async (term) => {
     setSearchTerm(term);
   };
-
+  //!añadir clase a div principal y actualizar css
   return (
-    <div>
+    <div className="activities-feed">
       <h1>Activities Feed</h1>
-      <Input setValueInput={handleSearch} value={searchTerm} />
+      <Input
+        setValueInput={handleSearch}
+        value={searchTerm}
+        id={'searchActivity'}
+        placeholder={'Zumba, Yoga, ...'}
+      />
       <div id="containerActivitiesFeed">
         {activities.length > 0 &&
           activities.map((activity) => (
