@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 
 export const UserProfileCard = ({ user }) => {
+  const { isSuperAdmin } = useAuth();
   const { logout } = useAuth();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
@@ -49,6 +50,13 @@ export const UserProfileCard = ({ user }) => {
         <button onClick={logout} className="logout-button">
           <span class="material-symbols-outlined">logout</span>
         </button>
+      </div>
+      <div className="superadmin-profile">
+        <Link to="/superadmin" style={{ display: isSuperAdmin ? 'block' : 'none' }}>
+          <button className={isSuperAdmin ? 'superadmin-button' : ''}>
+            Panel de Administración
+          </button>
+        </Link>
       </div>
     </div>
   );

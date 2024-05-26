@@ -12,6 +12,7 @@ import {
   Login,
   Profile,
   Register,
+  SuperAdminPanel,
   UpdateActivity,
   UpdateUser,
 } from '../pages';
@@ -87,17 +88,17 @@ export const router = createBrowserRouter([
       {
         path: '/activities/create',
         element: (
-          <Protected>
+          <ProtectedSuperAdmin>
             <CrearActivity />
-          </Protected>
+          </ProtectedSuperAdmin>
         ),
       },
       {
         path: '/activities/update/:id',
         element: (
-          <Protected>
+          <ProtectedSuperAdmin>
             <UpdateActivity />
-          </Protected>
+          </ProtectedSuperAdmin>
         ),
       },
       {
@@ -133,6 +134,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedSuperAdmin>
             <ActivityListSuperAdmin />
+          </ProtectedSuperAdmin>
+        ),
+      },
+      {
+        path: '/superadmin',
+        element: (
+          <ProtectedSuperAdmin>
+            <SuperAdminPanel />
           </ProtectedSuperAdmin>
         ),
       },
