@@ -73,7 +73,9 @@ export const AuthContextProvider = ({ children }) => {
         setAllUser,
         bridgeData, 
         deleteUser,
-        setDeleteUser
+        setDeleteUser,
+        isSuperAdmin: user?.rol === 'superadmin',
+
     }), [user, allUser, deleteUser])
 
     //! esta funcion devuelve el contexto para usar en main

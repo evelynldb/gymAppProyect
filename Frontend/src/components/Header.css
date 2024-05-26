@@ -26,7 +26,7 @@
 }
 
 .navbar a {
-  color: #0D5FA6;
+  color: #0d5fa6;
   text-decoration: none;
   padding: 10px;
   display: block;
@@ -44,4 +44,7 @@
   height: 40px;
   width: 40px;
   margin-top: 10px;
+}
+header {
+  min-height: 20vh;
 }

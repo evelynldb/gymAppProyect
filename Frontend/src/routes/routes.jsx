@@ -1,12 +1,27 @@
-import { createBrowserRouter } from 'react-router-dom'
-import { ActivitiesFeed, ActivityDetailPage, ChangePassword, CheckCode, Contact, CrearActivity, Dashboard, Home, Login, Profile, Register, UpdateActivity, UpdateUser } from '../pages'
-import App from '../App'
-import { ForgotPassword } from '../pages/ForgotPassword'
-import { Protected, ProtectedCheckChildren } from '../components'
-import { NavUser } from '../components/NavUser'
-import MessageComponent from '../pages/CreateMessage'
-import { Wall } from '../pages/Wall'
-import { CreateWallForm } from '../pages/CreateWallForm'
+import { createBrowserRouter } from 'react-router-dom';
+import {
+  ActivitiesFeed,
+  ActivityDetailPage,
+  ActivityListSuperAdmin,
+  ChangePassword,
+  CheckCode,
+  Contact,
+  CrearActivity,
+  Dashboard,
+  Home,
+  Login,
+  Profile,
+  Register,
+  UpdateActivity,
+  UpdateUser,
+} from '../pages';
+import App from '../App';
+import { ForgotPassword } from '../pages/ForgotPassword';
+import { Protected, ProtectedCheckChildren, ProtectedSuperAdmin } from '../components';
+import { NavUser } from '../components/NavUser';
+import MessageComponent from '../pages/CreateMessage';
+import { Wall } from '../pages/Wall';
+import { CreateWallForm } from '../pages/CreateWallForm';
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +127,14 @@ export const router = createBrowserRouter([
       {
         path: '/createWallForm',
         element: <CreateWallForm />,
+      },
+      {
+        path: '/activitiesList',
+        element: (
+          <ProtectedSuperAdmin>
+            <ActivityListSuperAdmin />
+          </ProtectedSuperAdmin>
+        ),
       },
     ],
   },
