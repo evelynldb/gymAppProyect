@@ -38,7 +38,7 @@ const Figure = ({ activity, user, setActivities }) => {
   const handleLike = async () => {
     setRes(await toggleLikeActivity(activity._id));
   };
-  
+
   const handleLikeAnonymous = () => {
     Swal.fire({
       icon: 'info',
@@ -54,7 +54,13 @@ const Figure = ({ activity, user, setActivities }) => {
         {activity.image && <img src={activity.image} alt={activity.name} width="200" />}
         <figcaption>
           <h2>{activity.name}</h2>
-          <RatingStars rating={rating} />
+          <RatingStars
+            rating={rating.avg}
+            count={rating.data?.length || 0}
+            showCount={true}
+            showLinkReviews={false}
+            showReviews={''}
+          />
           <p>{activity.type}</p>
         </figcaption>
       </Link>
