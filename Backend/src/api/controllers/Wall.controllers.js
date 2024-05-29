@@ -1,29 +1,36 @@
 //-------------------CREATE CONTROLLER---------------
-
-const mongoose = require("mongoose");
-const multer = require("multer");
 const Wall = require("../models/Wall.model");
 const Day = require("../models/Day.model");
-const User = require("../models/User.model");
-const Message = require("../models/Message.model");
-
-const upload = multer().none();
+const { upload, deleteImgCloudinary, configCloudinary } = require("../../middleware/files.middleware");
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const createWall = async (req, res) => {
-  // Extrae los datos necesarios del cuerpo de la solicitud (req.body) o de donde corresponda
-  const { type, name, expirationDate, owner, likes, image, activity, comments } =
-    req.body;
+  
+  const { type, name, expirationDate, owner, likes, activity, comments, content, days } = req.body;
 
   try {
+
+    let imageUrl = '';
+      if (req.file) {
+        const result = await cloudinary.uploader.upload(req.file.path);
+        imageUrl = result.secure_url;
+      }
+
     // Crea un nuevo documento de muro utilizando el modelo Wall y los datos proporcionados
     const nuevoWall = await Wall.create({
       type,
       expirationDate,
       owner,
       likes,
-      image,
+      image: imageUrl,
       activity,
       comments,
+      content,
+      days,
       name,
     });
 
@@ -54,6 +61,7 @@ const getByUser = async (req, res, next) => {
     return next(error);
   }
 };
+
 
 //! -----------------------------------------------------------------------------
 //? ---------------------------------findByType----------------------------------
@@ -182,13 +190,83 @@ const getAllWalls = async (req, res) => {
   }
 };
 
+//! ------------------------------------------------------------------------
+//? ------------------------------GET BY ID---------------------------------
+//! ------------------------------------------------------------------------
+
+const getWallById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const wall = await Wall.findById(id);
+    if (wall) {
+      return res.status(200).json(wall);
+    } else {
+      return res
+        .status(404)
+        .json({ error: "No se ha encontrado el muro" });
+    }
+  } catch (error) {
+    return res.status(404).json(error.message);
+  }
+};
+
+//! ------------------------------------------------------------------------
+//? ------------------------------GET BY NAME---------------------------------
+//! ------------------------------------------------------------------------
+
+const getWallByName = async (req, res) => {
+  try {
+    const wallName = req.params.name;
+    const wall = await Wall.findOne({ name: wallName }).populate('owner').populate('likes').populate('activity').populate('comments').populate('days');
+    
+    if (!wall) {
+      return res.status(404).json({ message: 'Wall not found' });
+    }
+
+    res.status(200).json(wall);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+
+
+//!-----------------------------------------------------------------------------
+//? --------------------------- UPDATE WALL ------------------------------------
+//! ---------------------------------------------------------------------------
+
+const updateWall = async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+
+  try {
+    // Encuentra y actualiza el documento del muro por su ID
+    const updatedWall = await Wall.findByIdAndUpdate(id, updateData, { new: true });
+
+    if (!updatedWall) {
+      return res.status(404).json({ message: 'Muro no encontrado' });
+    }
+
+    // Devuelve la respuesta con el muro actualizado
+    return res.status(200).json({ message: 'Muro actualizado exitosamente', muro: updatedWall });
+  } catch (error) {
+    // Maneja cualquier error
+    console.error('Error al actualizar el muro:', error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
   createWall,
   getByUser,
+  getWallById,
   getByType,
   getByDay,
   buscarActivitiesEnWall,
   deleteWall,
   deleteWallByExpiration,
   getAllWalls,
+  getWallByName,
+  updateWall,
 };

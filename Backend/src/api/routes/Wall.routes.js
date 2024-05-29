@@ -10,11 +10,16 @@ const {
   deleteWall,
   deleteWallByExpiration,
   getAllWalls,
+  getWallById,
+  getWallByName,
+  updateWall,
+
 } = require("../controllers/Wall.controllers");
 const { isAuthAdmin } = require("../../middleware/auth.middleware");
+const { upload } = require("../../middleware/files.middleware");
 
 // Ruta para crear una nueva entrada en el muro
-WallRoutes.post("/createWall", [isAuthAdmin], createWall);
+WallRoutes.post("/createWall", upload.single('image'), [isAuthAdmin], createWall);
 
 // Ruta para obtener muros por usuario
 WallRoutes.get("/getByUser/:userId", getByUser);
@@ -24,5 +29,9 @@ WallRoutes.get("/findByDay", getByDay);
 WallRoutes.get("/getall", getAllWalls);
 WallRoutes.delete("/walls/:id", deleteWall);
 WallRoutes.delete("/paredesVencidas", deleteWallByExpiration);
+WallRoutes.get('/walls/:id', getWallById);
+WallRoutes.get('/wall/:name', getWallByName);
+WallRoutes.patch('/walls/:id', updateWall);
+
 
 module.exports = WallRoutes;
