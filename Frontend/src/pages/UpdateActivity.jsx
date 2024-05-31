@@ -162,7 +162,10 @@ export const UpdateActivity = () => {
             defaultChecked={activity.status === false}
             className={`label-radio status ${!activity.status ? 'active' : ''}`} // Agrega la clase 'active' si el estado es inactivo
           />
-<label htmlFor="inactivo" className={`label-radio status ${!activity.status ? 'active' : ''}`}>
+          <label
+            htmlFor="inactivo"
+            className={`label-radio status ${!activity.status ? 'active' : ''}`}
+          >
             Desactivado
           </label>
         </div>

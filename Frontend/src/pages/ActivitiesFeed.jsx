@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useActivitiesFeedError } from '../hooks/useActivitiesFeedError';
 import { getAllActivities, getByName } from '../services/activities.service';
-import Figure from '../components/FigureActivity';
 import './ActivitiesFeed.css';
 import { Input } from '../components/Input';
 import { useGetByNameError } from '../hooks';
 import { useAuth } from '../context/authContext';
+import Figure from '../components/FigureActivity';
+
 
 export const ActivitiesFeed = () => {
   const [activities, setActivities] = useState([]);
@@ -46,7 +47,7 @@ export const ActivitiesFeed = () => {
   const handleSearch = async (term) => {
     setSearchTerm(term);
   };
-  //!añadir clase a div principal y actualizar css
+
   return (
     <div className="activities-feed">
       <h1>Activities Feed</h1>

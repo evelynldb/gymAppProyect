@@ -1,12 +1,13 @@
-import { APIGym } from "./gym.config";
-import { updateToken } from "../utils";
+import { extraConfig } from './gym.config';
+import { updateToken } from '../utils';
 
 //! ---------- CREATE DAY ---------- //
 
 export const createDay = async (dayData) => {
-  return APIGym.post('/days', dayData, {
+  const APIGeneral = extraConfig();
+  return APIGeneral.post('/day/createDay', dayData, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${updateToken()}`,
     },
   })
@@ -17,9 +18,10 @@ export const createDay = async (dayData) => {
 //! ---------- UPDATE DAY ---------- //
 
 export const updateDay = async (idDay, dayData) => {
-  return APIGym.put(`/days/${idDay}`, dayData, {
+  const APIGeneral = extraConfig();
+  return APIGeneral.put(`/day/update/${idDay}`, dayData, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${updateToken()}`,
     },
   })
@@ -30,7 +32,8 @@ export const updateDay = async (idDay, dayData) => {
 //! ---------- DELETE DAY ---------- //
 
 export const deleteDay = async (idDay) => {
-  return APIGym.delete(`/days/${idDay}`, {
+  const APIGeneral = extraConfig();
+  return APIGeneral.delete(`/day/${idDay}`, {
     headers: {
       Authorization: `Bearer ${updateToken()}`,
     },
@@ -39,14 +42,18 @@ export const deleteDay = async (idDay) => {
     .catch((error) => error);
 };
 
-//! ---------- FIND DAY BY ID ---------- //
+//! ---------- GET ALL DAY ---------- //
+export const getAllDays = async () => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.get('/day//getAll')
+    .then((res) => res)
+    .catch((error) => error);
+};
 
-export const findDayById = async (idDay) => {
-  return APIGym.get(`/days/findById/${idDay}`, {
-    headers: {
-      Authorization: `Bearer ${updateToken()}`,
-    },
-  })
+//! ---------- GET BY ID DAY ---------- //
+export const getDayId = async (id) => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.get(`/day/getById/${id}`)
     .then((res) => res)
     .catch((error) => error);
 };

@@ -20,7 +20,7 @@ return (
         <ButtonSuperAdminPanel to="/createWallForm">Crear Muro</ButtonSuperAdminPanel>
       </div>
       <div>
-        <ButtonSuperAdminPanel to="/createWallForm">Crear Muro</ButtonSuperAdminPanel>
+        <ButtonSuperAdminPanel to="/createWallForm">Crear Actividad Calendario</ButtonSuperAdminPanel>
       </div>
     </div>
   </div>

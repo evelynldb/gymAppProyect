@@ -13,17 +13,15 @@ export const ActivityDetailPage = () => {
     (async () => {
       setRes(await getById(idActivity));
     })();
-  }, []);
+  }, [idActivity]);
 
   useEffect(() => {
     useActivityDetail(res, setRes, setActivity);
   }, [res]);
 
-  useEffect(() => {}, [activity]);
-
   return (
     <div>
-      { activity && <ActivityDetail activity={activity} /> }
+      <ActivityDetail activity={activity} />
     </div>
-  );
+    );
 };

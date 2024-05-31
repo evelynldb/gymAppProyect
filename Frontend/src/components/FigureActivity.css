@@ -7,8 +7,6 @@ figure{
         transition: transform 0.3s ease-in-out;
     }
 
-    
-
     & p h2 {
         text-align: center;
     }
@@ -32,4 +30,5 @@ figure{
 .toggle-favorite .favorite-icon:hover {
   transform: scale(1.2);
 }
+
 

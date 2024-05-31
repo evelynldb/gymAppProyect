@@ -93,12 +93,6 @@ p {
   background-color: #993c3c;
 }
 
-/* elementos tabla */
-
-  th {
-  color: #f2bb16e0
-}
-
 /* css para formularios */
 
   .input_user {
@@ -143,7 +137,6 @@ p {
   .parrafoLogin {
     color: white;
   }
-
 
 
   #imagen {

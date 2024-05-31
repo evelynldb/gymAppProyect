@@ -10,4 +10,3 @@
 .label-radio:not(.active):hover {
   opacity: 1; /* Aumenta la opacidad de los botones no seleccionados al pasar el ratón sobre ellos */
 }
-

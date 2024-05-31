@@ -1,63 +1,68 @@
-import { updateToken } from "../utils";
-import { APIGym } from "./gym.config"
-
+import { updateToken } from '../utils';
+import { extraConfig } from './gym.config';
 
 //!------------------------ CREATE ----------------------------!
 
-export const createActivityToDayService = async (formData)=>{
-    return APIGym.post("/activityToDay/createActivityToDay", formData,{
+export const createActivityToDayService = async (formData) => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.post('/activityToDay/createActivityToDay', formData, {
     headers: {
       Authorization: `Bearer ${updateToken()}`,
     },
   })
     .then((res) => res)
     .catch((error) => error);
-}
+};
 
 //!------------------------ GETALL ----------------------------!
 
-export const getAllActivityToDay= async ()=>{
-    return APIGym.get("/activityToDay/")
-    .then((res) => console.log(res))
+export const getAllActivityToDay = async () => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.get('/activityToDay/')
+    .then((res) => res)
     .catch((error) => error);
-}
+};
 //!------------------------ FIND.ID ----------------------------!
 
-export const getActivityToDayActivityToDay= async (id)=>{
-    return APIGym.get(`/activityToDay/findById/${id}`)
-    .then((res) => console.log(res))
+export const getActivityToDayActivityToDay = async (id) => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.get(`/activityToDay/findById/${id}`)
+    .then((res) => res)
     .catch((error) => error);
-}
+};
 //!------------------------ BOOKING ----------------------------!
 
-export const bookingActivityToDay= async (formData,id)=>{
-    return APIGym.patch(`/activityToDay/booking/${id}`,formData,{
+export const bookingActivityToDay = async (id) => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.patch(`/activityToDay/booking/${id}`, {
     headers: {
       Authorization: `Bearer ${updateToken()}`,
     },
   })
-    .then((res) => console.log(res))
+    .then((res) => res)
     .catch((error) => error);
-}
+};
 //!------------------------ UPDATE ----------------------------!
 
-export const updateActivityToDay= async (formData,id)=>{
-    return APIGym.patch(`/activityToDay/${id}`,formData, {
-        headers: {
-      Authorization: `Bearer ${updateToken()}`,
-    },
-  })
-    .then((res) => console.log(res))
-    .catch((error) => error);
-}
-//!------------------------ DELETE ----------------------------!
-
-export const deleteActivityToDay= async (id)=>{
-    return APIGym.delete(`/activityToDay/${id}`,{
+export const updateActivityToDay = async (formData, id) => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.patch(`/activityToDay/${id}`, formData, {
     headers: {
       Authorization: `Bearer ${updateToken()}`,
     },
   })
-    .then((res) => console.log(res))
+    .then((res) => res)
     .catch((error) => error);
-}
+};
+//!------------------------ DELETE ----------------------------!
+
+export const deleteActivityToDay = async (id) => {
+  const APIGeneral = extraConfig();
+  return APIGeneral.delete(`/activityToDay/${id}`, {
+    headers: {
+      Authorization: `Bearer ${updateToken()}`,
+    },
+  })
+    .then((res) => res)
+    .catch((error) => error);
+};

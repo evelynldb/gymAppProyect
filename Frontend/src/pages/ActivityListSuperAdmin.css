@@ -1,4 +1,8 @@
-/* src/components/ActivityListSuperAdmin.css */
+
+.list-container {
+margin-top: 100px;
+}
+
 .activity-list-super-admin {
   max-width: 800px;
   margin: 0 auto;
@@ -84,7 +88,7 @@ button {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
-  margin: 0 5px; /* Ajusta el margen entre los botones si es necesario */
+  margin: 0 5px; /* Ajusta el margen entre los botones */
 }
 
 .pagination-container-buttons button:disabled {

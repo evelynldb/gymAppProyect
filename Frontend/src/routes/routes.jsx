@@ -1,28 +1,15 @@
-import { createBrowserRouter } from 'react-router-dom';
-import {
-  ActivitiesFeed,
-  ActivityDetailPage,
-  ActivityListSuperAdmin,
-  ChangePassword,
-  CheckCode,
-  Contact,
-  CrearActivity,
-  Dashboard,
-  Home,
-  Login,
-  Profile,
-  Register,
-  SuperAdminPanel,
-  UpdateActivity,
-  UpdateUser,
-} from '../pages';
-import App from '../App';
-import { ForgotPassword } from '../pages/ForgotPassword';
-import { Protected, ProtectedCheckChildren, ProtectedSuperAdmin } from '../components';
-import { NavUser } from '../components/NavUser';
-import MessageComponent from '../pages/CreateMessage';
-import { Wall } from '../pages/Wall';
-import { CreateWallForm } from '../pages/CreateWallForm';
+import { createBrowserRouter } from 'react-router-dom'
+import { ActivitiesFeed, ActivityDetailPage, ActivityListSuperAdmin, BookingDay, ChangePassword, CheckCode, Contact, CrearActivity, Dashboard, Home, Login, Profile, Register, SuperAdminPanel, UpdateActivity, UpdateUser } from '../pages'
+import App from '../App'
+import { ForgotPassword } from '../pages/ForgotPassword'
+import { ChatDetail, ChatInput, Protected, ProtectedCheckChildren, UserActivitiesFav, UserReviews, WallDetailPage } from '../components'
+import { NavUser } from '../components/NavUser'
+import MessageComponent from '../pages/CreateMessage'
+import { Wall } from '../pages/Wall'
+import { CreateWallForm } from '../pages/CreateWallForm'
+import { Calendar } from '../pages/Calendar' 
+import { ProtectedSuperAdmin } from '../components/ProtectedRoute/ProtectedSuperAdmin'
+import WallDetail from '../components/WallDetail'
 
 export const router = createBrowserRouter([
   {
@@ -111,7 +98,33 @@ export const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        element: <NavUser />,
+        element: (
+          <Protected>
+            <Profile />
+          </Protected>
+        ),
+        children: [
+          {
+            path: 'chat',
+            element: <ChatInput />,
+          },
+          {
+            path: 'chat/detail/:chatId',
+            element: <ChatDetail />,
+          },
+          {
+            path: 'activities',
+            element: <ActivitiesFeed />,
+          },
+          {
+            path: 'reviews',
+            element: <UserReviews />,
+          },
+          {
+            path: 'activitiesFav',
+            element: <UserActivitiesFav />,
+          },
+        ],
       },
       {
         path: '/createMessage',
@@ -126,8 +139,20 @@ export const router = createBrowserRouter([
         element: <Wall />,
       },
       {
+        path: '/wall/:wallId',
+        element: <WallDetailPage />,
+      },
+      {
         path: '/createWallForm',
         element: <CreateWallForm />,
+      },
+      {
+        path: '/calendar',
+        element: <Calendar />,
+      },
+      {
+        path: '/calendar/day/:idDay',
+        element: <BookingDay />,
       },
       {
         path: '/activitiesList',

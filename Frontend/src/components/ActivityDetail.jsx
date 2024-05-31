@@ -33,7 +33,14 @@ const ActivityDetail = ({ activity }) => {
   };
 
   const showReviewsHandleClick = () => {
-    setShowReviews((activity) => !activity);
+    setShowReviews((show) => !show);
+  };
+
+  const reloadReviews = () => {
+    (async () => {
+      setResRating(await getReviewsByActivityId(activity._id));
+    })();
+    setShowReviews(true);
   };
 
   if (!activity) {
@@ -45,8 +52,7 @@ const ActivityDetail = ({ activity }) => {
       <h1>{activity.name}</h1>
       <p className="spots">Número de plazas: {activity.spots}</p>
       <p className="type">Tipo de actividad: {activity.type}</p>
-      <p className="type">
-      </p>
+      <p className="type"></p>
       <img src={activity.image} alt={activity.name} />
       <h3>Te contamos en qué consiste</h3>
       <p className="description">{activity.description}</p>
@@ -64,6 +70,7 @@ const ActivityDetail = ({ activity }) => {
             <CreateReview
               activityId={activity._id}
               setShowCreateReview={setShowCreateReview}
+              reloadReviews={reloadReviews}
             />
           )}
         </>
